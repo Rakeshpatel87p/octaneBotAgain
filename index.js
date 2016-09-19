@@ -80,7 +80,7 @@ app.post('/webhook', function(req, res) {
             sendTextMessage(sender, "Postback received: " + text.substring(0, 200), token)
             continue
 
-            if (text === "\"House_Coffee_Order\""){
+            if (event.postback.payload === "House_Coffee_Order"){
             	sendTextMessage(sender, 'Testing');
             }
         }
