@@ -1,9 +1,20 @@
+// Present user immediately w/ drink options
+
+// Set up MongoDB and find prices of drinks
+// Output drink summary
+
+// Set up payment request
+
+// Q's for Victor:
+// How to login to my heroku webhook?
+
 'use strict'
 
-const express = require('express')
-const bodyParser = require('body-parser')
-const request = require('request')
-const app = express()
+const 
+	express = require('express'),
+	bodyParser = require('body-parser'),
+	request = require('request'),
+	app = express();
 
 app.set('port', (process.env.PORT || 5000))
 
@@ -23,7 +34,8 @@ app.get('/webhook/', function(req, res) {
     if (req.query['hub.verify_token'] === 'my_voice_is_my_password_verify_me') {
         res.send(req.query['hub.challenge'])
     }
-    res.send('Error, wrong token')
+    res.send('Error, wrong token');
+    sendGenericMessage();
 })
 
 // to post data
@@ -88,12 +100,12 @@ function sendGenericMessage(sender) {
                     "buttons": [{
                         "type": "postback",
                         "title": "Order Me!",
-                        "payload": "Payload for first element in a generic bubble"
+                        "payload": "House Coffee"
 
                     }, {
                         "type": "postback",
                         "title": "Checkout",
-                        "payload": "Payload for first element in a generic bubble"
+                        "payload": "Check out"
                     }],
                 },
 
@@ -104,12 +116,12 @@ function sendGenericMessage(sender) {
                     "buttons": [{
                         "type": "postback",
                         "title": "Order Me!",
-                        "payload": "Payload for first element in a generic bubble"
+                        "payload": "Cappuccino"
 
                     }, {
                         "type": "postback",
                         "title": "Checkout",
-                        "payload": "Payload for first element in a generic bubble"
+                        "payload": "Checkout"
                     }],
                 },
 
@@ -120,13 +132,23 @@ function sendGenericMessage(sender) {
                     "buttons": [{
                         "type": "postback",
                         "title": "Order Me!",
-                        "payload": "Payload for first element in a generic bubble",
+                        "payload": "Cortado",
 
                     }, {
                         "type": "postback",
                         "title": "Checkout",
-                        "payload": "Payload for first element in a generic bubble",
+                        "payload": "Checkout",
                     }],
+                },
+                {
+                	"title": "In Limited Release",
+                	"subtitle": "We want to explore if this is something our customers would use. If we dont have your drink, you'll have to use our beautiful register",
+                	"subtitle": "Click the button if you would use this feature!",
+                	"buttons": [{
+                		"type": "postback",
+                		"title": "You like me",
+                		"payload": "Other users"
+                	}],
                 }]
             }
         }
