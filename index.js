@@ -71,7 +71,7 @@ app.post('/webhook', function(req, res) {
                 sendGenericMessage(sender)
                 continue
             }
-            sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
+            // sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
         }
         if (event.postback) {
             var text = JSON.stringify(event.postback)
@@ -81,6 +81,11 @@ app.post('/webhook', function(req, res) {
             // continue
 
             if (event.postback.payload === "House_Coffee_Order"){
+            	request
+            		.get('/drinkInfo/' + event.postback.payload)
+            		.on('response', function(response){
+            			console.log(response)
+            		});
             	sendTextMessage(sender, 'Testing');
             }
         }
@@ -145,7 +150,7 @@ function sendGenericMessage(sender) {
                     "buttons": [{
                         "type": "postback",
                         "title": "Order Me!",
-                        "payload": "House_Coffee_Order"
+                        "payload": "House_Coffee"
 
                     }, {
                         "type": "postback",
