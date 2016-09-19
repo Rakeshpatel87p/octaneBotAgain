@@ -62,11 +62,9 @@ app.get('/webhook', function(req, res) {
 // to post data
 app.post('/webhook', function(req, res) {
     var messaging_events = req.body.entry[0].messaging;
-    console.log('messaging events-----------', messaging_events);
     for (var i = 0; i < messaging_events.length; i++) {
         var event = req.body.entry[0].messaging[i]
         var sender = event.sender.id
-        console.log('sender from post function----------', sender);
         if (event.message && event.message.text) {
             var text = event.message.text
             if (text === 'Generic') {
@@ -77,7 +75,7 @@ app.post('/webhook', function(req, res) {
         }
         if (event.postback) {
             var text = JSON.stringify(event.postback)
-            console.log(text);
+            console.log('this is the text------------', text);
             sendTextMessage(sender, "Postback received: " + text.substring(0, 200), token)
             continue
 
@@ -116,7 +114,6 @@ const token = "EAALR6yLCTuoBALKsjMzUnGMnmxV5jfSvJY3l1XAUbNYA7Mgl31TFAvT9QEkXxy0u
 
 function sendTextMessage(sender, text) {
     var messageData = { text: text }
-    console.log('sender from sendTextMessage function----------', sender);
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: { access_token: token },
