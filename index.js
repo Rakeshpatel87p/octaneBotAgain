@@ -109,7 +109,22 @@ function sendGenericMessage(sender) {
                         "title": "Checkout",
                         "payload": "Payload for first element in a generic bubble",
                     }],
-                }  
+                },
+
+                {
+                    "title": "House Coffee",
+                    "subtitle": "Freshly brewed, brought to you from la montanas de Honduras. $3.00",
+                    "buttons": [{
+                        "type": "postback",
+                        "title": "Order Me!",
+                        "payload": "Payload for first element in a generic bubble",
+
+                    }, {
+                        "type": "postback",
+                        "title": "Checkout",
+                        "payload": "Payload for first element in a generic bubble",
+                    }],
+                },  
                 // {
                 //     "title": "Cappuccino",
                 //     "subtitle": "Italian Coffee drink, prepared with 2 shots of espresso, hot milk, and steamed milk foam. $3.45.",
