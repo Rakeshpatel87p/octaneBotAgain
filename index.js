@@ -80,8 +80,7 @@ app.post('/webhook', function(req, res) {
             // sendTextMessage(sender, "Postback received: " + text.substring(0, 200), token)
             // continue
 
-            if (event.postback.payload === "House_Coffee_Order"){
-            	console.log('here!!!!!!!!!!!');
+            if (event.postback.payload === 'House_Coffee'){
             	request
             		.get('/drinkInfo/' + event.postback.payload)
             		.on('response', function(response){
