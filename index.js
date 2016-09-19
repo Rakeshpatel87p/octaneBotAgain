@@ -56,7 +56,7 @@ app.get('/webhook', function(req, res) {
         res.send(req.query['hub.challenge'])
     }
     res.send('Error, wrong token');
-    sendGenericMessage();
+    sendOrderMessage();
 })
 
 // to post data
@@ -67,8 +67,8 @@ app.post('/webhook', function(req, res) {
         var sender = event.sender.id
         if (event.message && event.message.text) {
             var text = event.message.text
-            if (text === 'Generic') {
-                sendGenericMessage(sender)
+            if (text === 'order') {
+                sendOrderMessage(sender)
                 continue
             }
             // sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
@@ -76,7 +76,6 @@ app.post('/webhook', function(req, res) {
         if (event.postback) {
             var text = JSON.stringify(event.postback)
             console.log('this is event postback------------', event.postback.payload)
-            console.log('this is the text------------', text);
             // sendTextMessage(sender, "Postback received: " + text.substring(0, 200), token)
             // continue
 
@@ -137,7 +136,7 @@ function sendTextMessage(sender, text) {
     })
 }
 
-function sendGenericMessage(sender) {
+function sendOrderingMessage(sender) {
     var messageData = {
         "attachment": {
             "type": "template",
