@@ -77,8 +77,8 @@ app.post('/webhook', function(req, res) {
             var text = JSON.stringify(event.postback)
             console.log('this is event postback------------', event.postback.payload)
             console.log('this is the text------------', text);
-            sendTextMessage(sender, "Postback received: " + text.substring(0, 200), token)
-            continue
+            // sendTextMessage(sender, "Postback received: " + text.substring(0, 200), token)
+            // continue
 
             if (event.postback.payload === "House_Coffee_Order"){
             	sendTextMessage(sender, 'Testing');
