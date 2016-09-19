@@ -1,28 +1,49 @@
 // Present user immediately w/ drink options
 
-// Set up MongoDB and find prices of drinks
 // Output drink summary
 
 // Set up payment request
 
 // Q's for Victor:
-// How to login to my heroku webhook?
+// How to access webhook? Wrong Error Token message
 
-'use strict'
+// 'use strict'
 
-const 
+var 
 	express = require('express'),
+	mongoose = require('mongoose'),
+	Schema = mongoose.Schema,
 	bodyParser = require('body-parser'),
 	request = require('request'),
+	port = process.env.PORT || 8080,
 	app = express();
-
-app.set('port', (process.env.PORT || 5000))
-
+	
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
-
+app.use(bodyParser.urlencoded({ extended: false }))	
 // parse application/json
 app.use(bodyParser.json())
+
+app.set('port', (process.env.PORT || 8080))
+
+app.use(express.static('public'));
+mongoose.connect('mongodb://localhost/drinkPrices');
+
+mongoose.connection.on('error', function(err) {
+    console.error('Could not connect. Error', err)
+});
+
+var coffeeDrinkSchema = mongoose.Schema({
+	name: {type: String, unique: true},
+	price: {type: Number},
+})
+
+// For accessing /webhook locally??
+// app.use(function(req, res, next){
+//   res.setHeader('Access-Control-Allow-Origin', '*');
+//   next();
+// })
+
+var CoffeeDrink = mongoose.model('CoffeeDrink', coffeeDrinkSchema);
 
 // index
 app.get('/', function(req, res) {
@@ -30,7 +51,7 @@ app.get('/', function(req, res) {
 })
 
 // for facebook verification
-app.get('/webhook/', function(req, res) {
+app.get('/webhook', function(req, res) {
     if (req.query['hub.verify_token'] === 'my_voice_is_my_password_verify_me') {
         res.send(req.query['hub.challenge'])
     }
@@ -39,14 +60,15 @@ app.get('/webhook/', function(req, res) {
 })
 
 // to post data
-app.post('/webhook/', function(req, res) {
-    let messaging_events = req.body.entry[0].messaging;
+app.post('/webhook', function(req, res) {
+    var messaging_events = req.body.entry[0].messaging;
     console.log('messaging events-----------', messaging_events);
-    for (let i = 0; i < messaging_events.length; i++) {
-        let event = req.body.entry[0].messaging[i]
-        let sender = event.sender.id
+    for (var i = 0; i < messaging_events.length; i++) {
+        var event = req.body.entry[0].messaging[i]
+        var sender = event.sender.id
+        console.log('sender from post function----------', sender);
         if (event.message && event.message.text) {
-            let text = event.message.text
+            var text = event.message.text
             if (text === 'Generic') {
                 sendGenericMessage(sender)
                 continue
@@ -54,13 +76,33 @@ app.post('/webhook/', function(req, res) {
             sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
         }
         if (event.postback) {
-            let text = JSON.stringify(event.postback)
+            var text = JSON.stringify(event.postback)
             sendTextMessage(sender, "Postback received: " + text.substring(0, 200), token)
             continue
         }
     }
     res.sendStatus(200)
-})
+});
+
+app.post('/drinkInfo', function(req, res){
+	 CoffeeDrink.create({name: req.body.drinkName, price: req.body.price}, function(err, newDrinkEntry){
+	 	if (err) {
+	 		res.status(500).json(err)
+	 	}; 
+	 	res.status(201).json(newDrinkEntry);
+	 });
+});
+
+app.get('/drinkInfo/:drink', function(req, res){
+	var coffeeDrink = req.params.drink;
+	console.log('this is the drink', coffeeDrink);
+	CoffeeDrink.find(function(err, coffeeDrinks){
+		if (err) {
+			res.status(500).json(err);
+		}; 
+		res.status(201).json(coffeeDrinks)
+	});
+});
 
 
 // recommended to inject access tokens as environmental variables, e.g.
@@ -68,8 +110,8 @@ app.post('/webhook/', function(req, res) {
 const token = "EAALR6yLCTuoBALKsjMzUnGMnmxV5jfSvJY3l1XAUbNYA7Mgl31TFAvT9QEkXxy0uklBPyeWdLFroZBf6hdTXX1ZBYPKCSUaTdDHdnxhpaaRhpCk50kvMzDVOZBCHzgO6IzXXq6JC1OX7aZBIn0xHFH8nydrFe5rU7pvGjZCs6tQZDZD";
 
 function sendTextMessage(sender, text) {
-    let messageData = { text: text }
-
+    var messageData = { text: text }
+    console.log('sender from sendTextMessage function----------', sender);
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: { access_token: token },
@@ -88,7 +130,7 @@ function sendTextMessage(sender, text) {
 }
 
 function sendGenericMessage(sender) {
-    let messageData = {
+    var messageData = {
         "attachment": {
             "type": "template",
             "payload": {
@@ -111,7 +153,7 @@ function sendGenericMessage(sender) {
 
                 {
                     "title": "Cappuccino",
-                    "subtitle": "Italian Coffee drink, prepared with 2 shots of espresso, hot milk, and steamed milk foam. $3.45.",
+                    "subtitle": "Italian Coffee drink, prepared with 2 shots of espresso, hot milk, and steamed milk foam. (Let drooling commence) $4.00.",
                     "image_url": "http://del.h-cdn.co/assets/15/45/980x490/landscape-1446486666-giulia-mule.jpg",
                     "buttons": [{
                         "type": "postback",
@@ -127,7 +169,7 @@ function sendGenericMessage(sender) {
 
                 {
                     "title": "Cortado",
-                    "subtitle": "Equal parts espresso and steamed milk. 5 ounches total volume. $3.00",
+                    "subtitle": "Equal parts espresso and steamed milk. 5 ounches total volume. We got you! $3.00",
                     "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/16/Caf%C3%A9Cortado(Tallat).jpg",
                     "buttons": [{
                         "type": "postback",
@@ -142,11 +184,11 @@ function sendGenericMessage(sender) {
                 },
                 {
                 	"title": "In Limited Release",
-                	"subtitle": "We want to explore if this is something our customers would use. If we dont have your drink, you'll have to use our beautiful register",
-                	"subtitle": "Click the button if you would use this feature!",
+                	"subtitle": "We want to see if our customers like this. If we dont have your drink, you'll have to use our beautiful register",
+                	// "subtitle": "BUT Click the button below PLEASE if you like this feature!",
                 	"buttons": [{
                 		"type": "postback",
-                		"title": "You like me",
+                		"title": "You like me!",
                 		"payload": "Other users"
                 	}],
                 }]
@@ -172,8 +214,11 @@ function sendGenericMessage(sender) {
 }
 
 // spin spin sugar
-app.listen(app.get('port'), function() {
-    console.log('running on port', app.get('port'))
-})
+app.listen(process.env.PORT || 8080);
+exports.app = app;
+
+// app.listen(app.get('port'), function() {
+//     console.log('running on port', app.get('port'))
+// })
 
 // curl -X POST "https://graph.facebook.com/v2.6/me/subscribed_apps?access_token=EAALR6yLCTuoBAMWHH6iaHUqPlwMM1dTUyKzjuZBodoqXRAPkq14x5JZAIaHE7KIA9gMxhwxUWhBmcXKZBRcLLecKAeZCZAJ4qehSZA3FHzXEpczahTwxaYow3hPGp7XtSZCEr5upEUMslUZC1bgXeP39EgHyU2JDNXnZBWmdQLG7voQZDZD"
