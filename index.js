@@ -85,10 +85,8 @@ function sendGenericMessage(sender) {
                     "title": "House Coffee",
                     "subtitle": "Freshly brewed, brought to you from la montanas de Honduras. $3.00",
                     "buttons": [{
-                        "type": "order",
                         "title": "Order Me!"
                     }, {
-                        "type": "checkout",
                         "title": "Checkout",
                         // "payload": "Payload for first element in a generic bubble",
                     }],
