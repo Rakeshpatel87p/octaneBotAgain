@@ -105,11 +105,11 @@ app.post('/drinkInfo', function(req, res){
 app.get('/drinkInfo/:drink', function(req, res){
 	var coffeeDrink = req.params.drink;
 	console.log('this is the drink', coffeeDrink);
-	CoffeeDrink.find(function(err, coffeeDrinks){
+	CoffeeDrink.find(coffeeDrink, function(err, coffeeDrink){
 		if (err) {
 			res.status(500).json(err);
 		}; 
-		res.status(201).json(coffeeDrinks)
+		res.status(201).json(coffeeDrink)
 	});
 });
 
