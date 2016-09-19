@@ -75,74 +75,74 @@ function sendTextMessage(sender, text) {
     })
 }
 
-// function sendGenericMessage(sender) {
-//     let messageData = {
-//         attachment: {
-//             type: 'template',
-//             payload: {
-//                 template_type: 'generic',
-//                 elements: [{
-//                     title: 'House Coffee',
-//                     subtitle: 'Freshly brewed, brought to you from Honduras.',
-//                     buttons: [
-//                     {
-//                     	type: 'orderMe',
-//                     	title : 'Order Me'
-//                     },
+function sendGenericMessage(sender) {
+    // let messageData = {
+    //     attachment: {
+    //         type: 'template',
+    //         payload: {
+    //             template_type: 'generic',
+    //             elements: [{
+    //                 title: 'House Coffee',
+    //                 subtitle: 'Freshly brewed, brought to you from Honduras.',
+    //                 buttons: [
+    //                 {
+    //                 	type: 'orderMe',
+    //                 	title : 'Order Me'
+    //                 },
 
-//                     {
-//                     	type: 'checkOut',
-//                     	title: 'Check Out'
-//                     }
-//                     ]
-//                 }, {
-//                     title: 'Cappuccino',
-//                     subtitle: 'Italian Coffee drink, prepared with 2 shots of espresso, hot milk, and steamed milk foam. $3.45.',
-//                     buttons: [
-//                     {
-//                     	type: 'orderMe',
-//                     	title : 'Order Me'
-//                     },
+    //                 {
+    //                 	type: 'checkOut',
+    //                 	title: 'Check Out'
+    //                 }
+    //                 ]
+    //             }, {
+    //                 title: 'Cappuccino',
+    //                 subtitle: 'Italian Coffee drink, prepared with 2 shots of espresso, hot milk, and steamed milk foam. $3.45.',
+    //                 buttons: [
+    //                 {
+    //                 	type: 'orderMe',
+    //                 	title : 'Order Me'
+    //                 },
 
-//                     {
-//                     	type: 'checkOut',
-//                     	title: 'Check Out'
-//                     }
-//                     ]
-//                 }, {
-//                     title: 'Cortado',
-//                     subtitle: 'Equal parts espresso and steamed milk. 5 ounches total volume. $3.00.',
-//                     buttons: [
-//                     {
-//                     	type: 'orderMe',
-//                     	title : 'Order Me'
-//                     },
+    //                 {
+    //                 	type: 'checkOut',
+    //                 	title: 'Check Out'
+    //                 }
+    //                 ]
+    //             }, {
+    //                 title: 'Cortado',
+    //                 subtitle: 'Equal parts espresso and steamed milk. 5 ounches total volume. $3.00.',
+    //                 buttons: [
+    //                 {
+    //                 	type: 'orderMe',
+    //                 	title : 'Order Me'
+    //                 },
 
-//                     {
-//                     	type: 'checkOut',
-//                     	title: 'Check Out'
-//                     }
-//                 }]
-//             }
-//         }
-//     };
+    //                 {
+    //                 	type: 'checkOut',
+    //                 	title: 'Check Out'
+    //                 }
+    //             }]
+    //         }
+    //     }
+    // };
 
-//     request({
-//         url: 'https://graph.facebook.com/v2.6/me/messages',
-//         qs: { access_token: token },
-//         method: 'POST',
-//         json: {
-//             recipient: { id: sender },
-//             message: messageData,
-//         }
-//     }, function(error, response, body) {
-//         if (error) {
-//             console.log('Error sending messages: ', error)
-//         } else if (response.body.error) {
-//             console.log('Error: ', response.body.error)
-//         }
-//     })
-// }
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: { access_token: token },
+        method: 'POST',
+        json: {
+            recipient: { id: sender },
+            message: messageData,
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })
+}
 
 // spin spin sugar
 app.listen(app.get('port'), function() {
