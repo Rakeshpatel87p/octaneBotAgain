@@ -84,16 +84,16 @@ function sendGenericMessage(sender) {
                 "elements": [{
                     "title": "House Coffee",
                     "subtitle": "Freshly brewed, brought to you from la montanas de Honduras. $3.00",
+                    "image_url": "http://wtop.com/wp-content/uploads/2015/03/getty_030315_coffee.jpg",
                     "buttons": [{
                         "type": "postback",
                         "title": "Order Me!",
-                        "image_url": "http://wtop.com/wp-content/uploads/2015/03/getty_030315_coffee.jpg",
-                        "payload": "Payload for first element in a generic bubble",
+                        "payload": "Payload for first element in a generic bubble"
 
                     }, {
                         "type": "postback",
                         "title": "Checkout",
-                        "payload": "Payload for first element in a generic bubble",
+                        "payload": "Payload for first element in a generic bubble"
                     }],
                 },
 
@@ -103,12 +103,12 @@ function sendGenericMessage(sender) {
                     "buttons": [{
                         "type": "postback",
                         "title": "Order Me!",
-                        "payload": "Payload for first element in a generic bubble",
+                        "payload": "Payload for first element in a generic bubble"
 
                     }, {
                         "type": "postback",
                         "title": "Checkout",
-                        "payload": "Payload for first element in a generic bubble",
+                        "payload": "Payload for first element in a generic bubble"
                     }],
                 },
 
