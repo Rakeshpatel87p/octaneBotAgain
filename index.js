@@ -75,7 +75,8 @@ app.post('/webhook', function(req, res) {
         }
         if (event.postback) {
             var text = JSON.stringify(event.postback)
-            console.log('this is the playload text------------', text.payload);
+            console.log('this is event postback------------', event.postback)
+            console.log('this is the text------------', text);
             sendTextMessage(sender, "Postback received: " + text.substring(0, 200), token)
             continue
 
