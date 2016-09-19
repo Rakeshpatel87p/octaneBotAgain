@@ -100,6 +100,7 @@ function sendGenericMessage(sender) {
                 {
                     "title": "Cappuccino",
                     "subtitle": "Italian Coffee drink, prepared with 2 shots of espresso, hot milk, and steamed milk foam. $3.45.",
+                    "image_url": "http://del.h-cdn.co/assets/15/45/980x490/landscape-1446486666-giulia-mule.jpg",
                     "buttons": [{
                         "type": "postback",
                         "title": "Order Me!",
@@ -115,6 +116,7 @@ function sendGenericMessage(sender) {
                 {
                     "title": "Cortado",
                     "subtitle": "Equal parts espresso and steamed milk. 5 ounches total volume. $3.00",
+                    "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/16/Caf%C3%A9Cortado(Tallat).jpg",
                     "buttons": [{
                         "type": "postback",
                         "title": "Order Me!",
