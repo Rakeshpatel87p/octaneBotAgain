@@ -184,8 +184,8 @@ function sendGenericMessage(sender) {
                 },
                 {
                 	"title": "In Limited Release",
-                	"subtitle": "We want to see if our customers like this. If we dont have your drink, you'll have to use our beautiful register",
-                	// "subtitle": "BUT Click the button below PLEASE if you like this feature!",
+                	"subtitle": "If we dont have your drink, you'll have to use our beautiful register",
+                	"subtitle": "Click the button below PLEASE if you like this feature!",
                 	"buttons": [{
                 		"type": "postback",
                 		"title": "You like me!",
