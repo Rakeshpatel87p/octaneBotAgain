@@ -92,33 +92,35 @@ function sendGenericMessage(sender) {
                         "title": "Checkout",
                         // "payload": "Payload for first element in a generic bubble",
                     }],
-                }, {
-                    "title": "Cappuccino",
-                    "subtitle": "Italian Coffee drink, prepared with 2 shots of espresso, hot milk, and steamed milk foam. $3.45.",
-                    "buttons": [{
-                        "type": "order",
-                        "title": "Order Me!",
-                        // "payload": "Payload for second element in a generic bubble",
-                    }, {
-                        "type": 'checkout',
-                        "title": 'Checkout'
-                    }],
-                }, {
-                    "title": "Cortado",
-                    "subtitle": "Equal parts espresso and steamed milk. 5 ounches total volume. $3.00.",
-                    "buttons": [{
-                        "type": "order",
-                        "title": "Order Me!",
-                        // "payload": "Payload for second element in a generic bubble",
-                    }, {
-                        "type": 'checkout',
-                        "title": 'Checkout'
-                    }],
-                }]
+                } 
+                // {
+                //     "title": "Cappuccino",
+                //     "subtitle": "Italian Coffee drink, prepared with 2 shots of espresso, hot milk, and steamed milk foam. $3.45.",
+                //     "buttons": [{
+                //         "type": "order",
+                //         "title": "Order Me!",
+                //         // "payload": "Payload for second element in a generic bubble",
+                //     }, {
+                //         "type": 'checkout',
+                //         "title": 'Checkout'
+                //     }],
+                // }, {
+                //     "title": "Cortado",
+                //     "subtitle": "Equal parts espresso and steamed milk. 5 ounches total volume. $3.00.",
+                //     "buttons": [{
+                //         "type": "order",
+                //         "title": "Order Me!",
+                //         // "payload": "Payload for second element in a generic bubble",
+                //     }, {
+                //         "type": 'checkout',
+                //         "title": 'Checkout'
+                //     }],
+                // }
+                ]
             }
         }
     };
-    
+
     request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: { access_token: token },
