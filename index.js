@@ -76,104 +76,116 @@ function sendTextMessage(sender, text) {
 }
 
 function sendGenericMessage(sender) {
-	let messageData = {
-		"attachment": {
-			"type": "template",
-			"payload": {
-				"template_type": "generic",
-				"elements": [{
-					"title": "First card",
-					"subtitle": "Element #1 of an hscroll",
-					"image_url": "http://messengerdemo.parseapp.com/img/rift.png",
-					"buttons": [{
-						"type": "web_url",
-						"url": "https://www.messenger.com",
-						"title": "web url"
-					}, {
-						"type": "postback",
-						"title": "Postback",
-						"payload": "Payload for first element in a generic bubble",
-					}],
-				}, {
-					"title": "Second card",
-					"subtitle": "Element #2 of an hscroll",
-					"image_url": "http://messengerdemo.parseapp.com/img/gearvr.png",
-					"buttons": [{
-						"type": "postback",
-						"title": "Postback",
-						"payload": "Payload for second element in a generic bubble",
-					}],
-				}]
-			}
-		}
-	}
-		request({
-		url: 'https://graph.facebook.com/v2.6/me/messages',
-		qs: {access_token:token},
-		method: 'POST',
-		json: {
-			recipient: {id:sender},
-			message: messageData,
-		}
-	}, function(error, response, body) {
-		if (error) {
-			console.log('Error sending messages: ', error)
-		} else if (response.body.error) {
-			console.log('Error: ', response.body.error)
-		}
-	})
+    let messageData = {
+        "attachment": {
+            "type": "template",
+            "payload": {
+                "template_type": "generic",
+                "elements": [{
+                    "title": "House Coffee",
+                    "subtitle": "Freshly brewed, brought to you from la montanas de Honduras. $3.00",
+                    "buttons": [{
+                        "type": "order",
+                        "title": "Order Me!"
+                    }, {
+                        "type": "checkout",
+                        "title": "Checkout",
+                        // "payload": "Payload for first element in a generic bubble",
+                    }],
+                }, {
+                    "title": "Cappuccino",
+                    "subtitle": "Italian Coffee drink, prepared with 2 shots of espresso, hot milk, and steamed milk foam. $3.45.",
+                    "buttons": [{
+                        "type": "order",
+                        "title": "Order Me!",
+                        // "payload": "Payload for second element in a generic bubble",
+                    }, {
+                        "type": 'checkout',
+                        "title": 'Checkout'
+                    }],
+                }, {
+                    "title": "Cortado",
+                    "subtitle": "Equal parts espresso and steamed milk. 5 ounches total volume. $3.00.",
+                    "buttons": [{
+                        "type": "order",
+                        "title": "Order Me!",
+                        // "payload": "Payload for second element in a generic bubble",
+                    }, {
+                        "type": 'checkout',
+                        "title": 'Checkout'
+                    }],
+                }]
+            }
+        }
+    };
+    
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: { access_token: token },
+        method: 'POST',
+        json: {
+            recipient: { id: sender },
+            message: messageData,
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })
 }
 
-    // let messageData = {
-    //     attachment: {
-    //         type: 'template',
-    //         payload: {
-    //             template_type: 'generic',
-    //             elements: [{
-    //                 title: 'House Coffee',
-    //                 subtitle: 'Freshly brewed, brought to you from Honduras.',
-    //                 buttons: [
-    //                 {
-    //                 	type: 'orderMe',
-    //                 	title : 'Order Me'
-    //                 },
+// let messageData = {
+//     attachment: {
+//         type: 'template',
+//         payload: {
+//             template_type: 'generic',
+//             elements: [{
+//                 title: 'House Coffee',
+//                 subtitle: 'Freshly brewed, brought to you from Honduras.',
+//                 buttons: [
+//                 {
+//                 	type: 'orderMe',
+//                 	title : 'Order Me'
+//                 },
 
-    //                 {
-    //                 	type: 'checkOut',
-    //                 	title: 'Check Out'
-    //                 }
-    //                 ]
-    //             }, {
-    //                 title: 'Cappuccino',
-    //                 subtitle: 'Italian Coffee drink, prepared with 2 shots of espresso, hot milk, and steamed milk foam. $3.45.',
-    //                 buttons: [
-    //                 {
-    //                 	type: 'orderMe',
-    //                 	title : 'Order Me'
-    //                 },
+//                 {
+//                 	type: 'checkOut',
+//                 	title: 'Check Out'
+//                 }
+//                 ]
+//             }, {
+//                 title: 'Cappuccino',
+//                 subtitle: 'Italian Coffee drink, prepared with 2 shots of espresso, hot milk, and steamed milk foam. $3.45.',
+//                 buttons: [
+//                 {
+//                 	type: 'orderMe',
+//                 	title : 'Order Me'
+//                 },
 
-    //                 {
-    //                 	type: 'checkOut',
-    //                 	title: 'Check Out'
-    //                 }
-    //                 ]
-    //             }, {
-    //                 title: 'Cortado',
-    //                 subtitle: 'Equal parts espresso and steamed milk. 5 ounches total volume. $3.00.',
-    //                 buttons: [
-    //                 {
-    //                 	type: 'orderMe',
-    //                 	title : 'Order Me'
-    //                 },
+//                 {
+//                 	type: 'checkOut',
+//                 	title: 'Check Out'
+//                 }
+//                 ]
+//             }, {
+//                 title: 'Cortado',
+//                 subtitle: 'Equal parts espresso and steamed milk. 5 ounches total volume. $3.00.',
+//                 buttons: [
+//                 {
+//                 	type: 'orderMe',
+//                 	title : 'Order Me'
+//                 },
 
-    //                 {
-    //                 	type: 'checkOut',
-    //                 	title: 'Check Out'
-    //                 }
-    //             }]
-    //         }
-    //     }
-    // };
+//                 {
+//                 	type: 'checkOut',
+//                 	title: 'Check Out'
+//                 }
+//             }]
+//         }
+//     }
+// };
 
 // spin spin sugar
 app.listen(app.get('port'), function() {
