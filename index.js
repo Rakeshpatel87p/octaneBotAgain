@@ -87,6 +87,7 @@ function sendGenericMessage(sender) {
                     "buttons": [{
                         "type": "postback",
                         "title": "Order Me!",
+                        "image_url": "http://wtop.com/wp-content/uploads/2015/03/getty_030315_coffee.jpg",
                         "payload": "Payload for first element in a generic bubble",
 
                     }, {
