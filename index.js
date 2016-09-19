@@ -146,57 +146,6 @@ function sendGenericMessage(sender) {
     })
 }
 
-// let messageData = {
-//     attachment: {
-//         type: 'template',
-//         payload: {
-//             template_type: 'generic',
-//             elements: [{
-//                 title: 'House Coffee',
-//                 subtitle: 'Freshly brewed, brought to you from Honduras.',
-//                 buttons: [
-//                 {
-//                 	type: 'orderMe',
-//                 	title : 'Order Me'
-//                 },
-
-//                 {
-//                 	type: 'checkOut',
-//                 	title: 'Check Out'
-//                 }
-//                 ]
-//             }, {
-//                 title: 'Cappuccino',
-//                 subtitle: 'Italian Coffee drink, prepared with 2 shots of espresso, hot milk, and steamed milk foam. $3.45.',
-//                 buttons: [
-//                 {
-//                 	type: 'orderMe',
-//                 	title : 'Order Me'
-//                 },
-
-//                 {
-//                 	type: 'checkOut',
-//                 	title: 'Check Out'
-//                 }
-//                 ]
-//             }, {
-//                 title: 'Cortado',
-//                 subtitle: 'Equal parts espresso and steamed milk. 5 ounches total volume. $3.00.',
-//                 buttons: [
-//                 {
-//                 	type: 'orderMe',
-//                 	title : 'Order Me'
-//                 },
-
-//                 {
-//                 	type: 'checkOut',
-//                 	title: 'Check Out'
-//                 }
-//             }]
-//         }
-//     }
-// };
-
 // spin spin sugar
 app.listen(app.get('port'), function() {
     console.log('running on port', app.get('port'))
