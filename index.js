@@ -85,9 +85,9 @@ app.get('/webhook', function(req, res) {
 // to post data
 app.post('/webhook', function(req, res) {
     var messaging_events = req.body.entry[0].messaging;
+    var sender = event.sender.id
     for (var i = 0; i < messaging_events.length; i++) {
         var event = req.body.entry[0].messaging[i]
-        var sender = event.sender.id
         if (event.message && event.message.text) {
             var text = event.message.text
             if (text === 'order') {
@@ -243,6 +243,7 @@ function sendMenuMessage(sender) {
 
 function orderSummaryMessage(sender, coffeeDrink) {
     console.log(coffeeDrink);
+    console.log(sender);
     Request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: { access_token: token },
