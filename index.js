@@ -106,8 +106,8 @@ app.post('/webhook', function(req, res) {
                         url: Heroku_URI + '/drinkInfo/' + event.postback.payload,
                         method: 'GET'
                     }
-                        , function(req, res){
-                        res.status(201).json(res);
+                        , function(req, res. body){
+                        res.status(201).json(body);
                     });
             		// .on('response', function(coffeeDrink){
             		// 	console.log('this is the response----------', coffeeDrink)
