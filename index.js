@@ -162,13 +162,9 @@ function sendMenuMessage(sender) {
                         "image_url": "http://wtop.com/wp-content/uploads/2015/03/getty_030315_coffee.jpg",
                         "buttons": [{
                             "type": "postback",
-                            "title": "Order Me!",
+                            "title": "Break Me Out Of Here!",
                             "payload": "House_Coffee"
 
-                        }, {
-                            "type": "postback",
-                            "title": "Checkout",
-                            "payload": "Check out"
                         }],
                     },
 
@@ -178,13 +174,9 @@ function sendMenuMessage(sender) {
                         "image_url": "http://del.h-cdn.co/assets/15/45/980x490/landscape-1446486666-giulia-mule.jpg",
                         "buttons": [{
                             "type": "postback",
-                            "title": "Order Me!",
+                            "title": "Pick Me!",
                             "payload": "Cappuccino"
 
-                        }, {
-                            "type": "postback",
-                            "title": "Checkout",
-                            "payload": "Checkout"
                         }],
                     },
 
@@ -194,20 +186,16 @@ function sendMenuMessage(sender) {
                         "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/16/Caf%C3%A9Cortado(Tallat).jpg",
                         "buttons": [{
                             "type": "postback",
-                            "title": "Order Me!",
+                            "title": "Here Here!",
                             "payload": "Cortado",
 
-                        }, {
-                            "type": "postback",
-                            "title": "Checkout",
-                            "payload": "Checkout",
                         }],
                     }, {
                         "title": "In Limited Release",
                         "subtitle": "If we dont have your drink, you'll have to use our beautiful register",
                         "buttons": [{
                             "type": "postback",
-                            "title": "Click Me If You Like this Feature!",
+                            "title": "Click If You Want This Option!",
                             "payload": "Other users"
                         }],
                     }
@@ -251,7 +239,7 @@ function orderSummaryMessage(sender, coffeeDrink) {
                 "summary": {
                     "total_cost": coffeeDrink.price
                 },
-                "buttons": [{
+                "button": [{
                     "type": "postback",
                     "title": "Confirm",
                     "payload": "confirmed_order"
