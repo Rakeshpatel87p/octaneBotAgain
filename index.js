@@ -99,6 +99,10 @@ app.post('/webhook', function(req, res) {
                 orderSummaryMessage(sender, coffeeDrink)
             })
         }
+
+        if (event.postback.payload === "start_over"){
+            sendMenuMessage(sender)
+        }
     }
     res.sendStatus(200)
 });
@@ -228,7 +232,7 @@ function orderSummaryMessage(sender, coffeeDrink) {
                     "buttons": [{
                         "type": "postback",
                         "title": "Confirm",
-                        "payload": "Confirmed_Order"
+                        "payload": {coffeeDrink}
                     }, {
                         "type": "postback",
                         "title": "Start Over",
