@@ -90,10 +90,10 @@ app.post('/webhook', function(req, res) {
             }
         }
         if (event.postback) {
-            if (JSON.stringify(event.postback.payload) == "start_over") {
+            if (JSON.stringify(event.postback.payload) === "start_over") {
                 sendMenuMessage(sender)
             }
-            console.log(event.postback.payload);
+            console.log('look for me-----------', JSON.stringify(event.postback.payload));
             // var text = JSON.stringify(event.postback)
             CoffeeDrink.findOne({ name: event.postback.payload }, function(err, coffeeDrink) {
                 if (err) {
