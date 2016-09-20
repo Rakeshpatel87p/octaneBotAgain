@@ -26,7 +26,6 @@ var
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
-    // parse application/json
 app.use(bodyParser.json())
 
 app.use(express.static('public'));
@@ -49,11 +48,6 @@ mongoose.connect(process.env.MONGOLAB_URI, function(err, database) {
     });
 
 });
-// mongoose.connection.on('error', function(err) {
-//     console.error('Could not connect. Error', err)
-// });
-
-
 
 var CoffeeDrinkSchema = new mongoose.Schema({
     name: { type: String, unique: true },
@@ -96,6 +90,7 @@ app.post('/webhook', function(req, res) {
             }
         }
         if (event.postback) {
+            console.log(event.postback);
             // var text = JSON.stringify(event.postback)
             CoffeeDrink.findOne({ name: event.postback.payload }, function(err, coffeeDrink) {
                 if (err) {
@@ -237,7 +232,7 @@ function orderSummaryMessage(sender, coffeeDrink) {
                     }, {
                         "type": "postback",
                         "title": "Start Over",
-                        "payload": "Start_over"
+                        "payload": "start_over"
                     }]
                 }]
             }
@@ -260,12 +255,4 @@ function orderSummaryMessage(sender, coffeeDrink) {
     })
 }
 
-// spin spin sugar
-// app.listen(process.env.PORT || 8080);
 exports.app = app;
-
-// app.listen(app.get('port'), function() {
-//     console.log('running on port', app.get('port'))
-// })
-
-// curl -X POST "https://graph.facebook.com/v2.6/me/subscribed_apps?access_token=EAALR6yLCTuoBAMWHH6iaHUqPlwMM1dTUyKzjuZBodoqXRAPkq14x5JZAIaHE7KIA9gMxhwxUWhBmcXKZBRcLLecKAeZCZAJ4qehSZA3FHzXEpczahTwxaYow3hPGp7XtSZCEr5upEUMslUZC1bgXeP39EgHyU2JDNXnZBWmdQLG7voQZDZD"
