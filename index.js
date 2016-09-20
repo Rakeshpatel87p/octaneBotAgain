@@ -86,7 +86,6 @@ app.post('/webhook', function(req, res) {
             var text = event.message.text
             if (text === 'order') {
                 sendMenuMessage(sender)
-                continue
             }
         }
         if (event.postback) {
