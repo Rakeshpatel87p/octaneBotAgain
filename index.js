@@ -231,11 +231,11 @@ function orderSummaryMessage(sender, coffeeDrink) {
                     "title": coffeeDrink.name + ' order.',
                     // "quantity": "#####",
                     "subtitle": 'For ' + coffeeDrink.price,
-                }],
-                "buttons": [{
-                    "type": "postback",
-                    "title": "Confirm",
-                    "payload": "Confirmed_Order"
+                    "buttons": [{
+                        "type": "postback",
+                        "title": "Confirm",
+                        "payload": "Confirmed_Order"
+                    }]
                 }]
             }
         }
