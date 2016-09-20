@@ -90,7 +90,7 @@ app.post('/webhook', function(req, res) {
             }
         }
         if (event.postback) {
-            if (event.postback.payload == "start_over") {
+            if (JSON.stringify(event.postback.payload) == "start_over") {
                 sendMenuMessage(sender)
             }
             console.log(event.postback.payload);
