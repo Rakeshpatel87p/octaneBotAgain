@@ -95,6 +95,7 @@ app.post('/webhook', function(req, res) {
             console.log('this is the postbackText--------------', postbackText);
             if (postbackText === "start_over") {
                 sendMenuMessage(sender)
+                process.exit();
             }
             CoffeeDrink.findOne({ name: event.postback.payload }, function(err, coffeeDrink) {
                 if (err) {
