@@ -55,10 +55,10 @@ mongoose.connect(process.env.MONGOLAB_URI, function(err, database){
 
 
 
-var coffeeDrinkSchema = mongoose.Schema({
+var CoffeeDrinkSchema = new mongoose.Schema({
 	name: {type: String, unique: true},
 	price: {type: Number},
-})
+});
 
 // For accessing /webhook locally??
 // app.use(function(req, res, next){
@@ -66,7 +66,7 @@ var coffeeDrinkSchema = mongoose.Schema({
 //   next();
 // })
 
-var CoffeeDrink = mongoose.model('CoffeeDrink', coffeeDrinkSchema);
+var CoffeeDrink = mongoose.model('CoffeeDrink', CoffeeDrinkSchema);
 
 // index
 app.get('/', function(req, res) {
@@ -103,11 +103,17 @@ app.post('/webhook', function(req, res) {
             // continue
 
             if (event.postback.payload === 'House_Coffee'){
-            	router
-                    .get('/drinkInfo/' + event.postback.payload)
-            		.on('response', function(coffeeDrink){
-            			console.log('this is the response----------', coffeeDrink)
-            		});
+            	CoffeeDrink.findOne({name: event.postback.payload}, function(err, coffeeDrink){
+                    if (err){
+                        console.log(err)
+                    }
+                    console.log('this is the coffee drink-----------', coffeeDrink);
+                })
+                // Request
+                //  .get('/drinkInfo/' + event.postback.payload)
+            	// 	.on('response', function(coffeeDrink){
+            	// 		console.log('this is the response----------', coffeeDrink)
+            	// 	});
             	sendTextMessage(sender, 'Testing');
             }
         }
