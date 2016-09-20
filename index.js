@@ -234,22 +234,21 @@ function sendMenuMessage(sender) {
 }
 
 function orderSummaryMessage(sender, coffeeDrink) {
-    var messageData = { 
+    var messageData = {
         "attachment": {
-            "type" : "template",
+            "type": "template",
             "payload": {
                 "template_type": "receipt",
-                "elements":[
-                    "title": coffeeDrink.name
-                    "quantity":"#####",
-                    "price":coffeeDrink.price, 
-                ],
-                "summary":{
-                    "total_cost": coffeeDrink.price 
-                }   
+                "elements": [{
+                    "title": coffeeDrink.name "quantity": "#####",
+                    "price": coffeeDrink.price,
+                }],
+                "summary": {
+                    "total_cost": coffeeDrink.price
+                }
             }
         }
-    }
+    };
     Request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: { access_token: token },
