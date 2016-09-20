@@ -19,6 +19,7 @@ var
 	port = process.env.PORT || 8080,
 	app = express(),
     ObjectID = mongodb.ObjectID,
+    Heroku_URI = 'https://salty-chamber-30914.herokuapp.com/',
     // MONGOLAB_URI = "mongodb://Rakeshpatel87p:Printer1@ds035846.mlab.com:35846/coffeedrinkinfo",
     db;
 	
@@ -102,9 +103,9 @@ app.post('/webhook', function(req, res) {
 
             if (event.postback.payload === 'House_Coffee'){
             	request
-            		.get('https://salty-chamber-30914.herokuapp.com/drinkInfo/drinkInfo/' + event.postback.payload)
+            		.get(Heroku_URI + '/drinkInfo/' + event.postback.payload)
             		.on('response', function(response){
-            			console.log(response)
+            			console.log('this is the response----------', response)
             		});
             	sendTextMessage(sender, 'Testing');
             }
