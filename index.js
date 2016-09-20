@@ -232,7 +232,7 @@ function orderSummaryMessage(sender, coffeeDrink) {
                     "buttons": [{
                         "type": "postback",
                         "title": "Confirm",
-                        "payload": {coffeeDrink}
+                        "payload": 'confirmed'
                     }, {
                         "type": "postback",
                         "title": "Start Over",
