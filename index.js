@@ -226,19 +226,17 @@ function orderSummaryMessage(sender, coffeeDrink) {
         "attachment": {
             "type": "template",
             "payload": {
-                "template_type": "receipt",
-                "recipient_name": 'Rocky P',
-                "order_number": '000000',
-                "currency": "USD",
-                "payment_method": 'FB messenger',
+                "template_type": "generic",
                 "elements": [{
-                    "title": coffeeDrink.name,
+                    "title": coffeeDrink.name + ' order.',
                     // "quantity": "#####",
                     "price": coffeeDrink.price,
                 }],
-                "summary": {
-                    "total_cost": coffeeDrink.price
-                }
+                "buttons": [{
+                    "type": "postback",
+                    "title": "Confirm",
+                    "payload": "Confirmed_Order"
+                }]
             }
         }
     };
