@@ -97,7 +97,7 @@ app.post('/webhook', function(req, res) {
             console.log('look for me-----------', JSON.stringify(event.postback.payload));
             CoffeeDrink.findOne({ name: text }, function(err, coffeeDrink) {
                 if (err) {
-                    console.log(err)
+                    sendMenuMessage(sender)
                 }
                 orderSummaryMessage(sender, coffeeDrink)
             })
