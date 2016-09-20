@@ -235,11 +235,6 @@ function orderSummaryMessage(sender, coffeeDrink) {
                     "title": coffeeDrink.name,
                     // "quantity": "#####",
                     "price": coffeeDrink.price,
-                    "button": {
-                        "type": "postback",
-                        "title": "Confirm",
-                        "payload": "confirmed_order"
-                    }
                 }],
                 "summary": {
                     "total_cost": coffeeDrink.price
