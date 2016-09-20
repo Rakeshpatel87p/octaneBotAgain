@@ -94,23 +94,15 @@ app.post('/webhook', function(req, res) {
                 sendMenuMessage(sender)
                 continue
             }
-            // sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
         }
         if (event.postback) {
-            var text = JSON.stringify(event.postback)
-            console.log('this is event postback------------', event.postback.payload)
-                // sendTextMessage(sender, "Postback received: " + text.substring(0, 200), token)
-                // continue
-
-            // if (event.postback.payload === 'House_Coffee') {
-                CoffeeDrink.findOne({ name: event.postback.payload }, function(err, coffeeDrink) {
-                        if (err) {
-                            console.log(err)
-                        }
-                        orderSummaryMessage(sender, coffeeDrink)
-                    })
-                    // sendTextMessage(sender, 'Testing');
-            // }
+            // var text = JSON.stringify(event.postback)
+            CoffeeDrink.findOne({ name: event.postback.payload }, function(err, coffeeDrink) {
+                if (err) {
+                    console.log(err)
+                }
+                orderSummaryMessage(sender, coffeeDrink)
+            })
         }
     }
     res.sendStatus(200)
@@ -242,7 +234,22 @@ function sendMenuMessage(sender) {
 }
 
 function orderSummaryMessage(sender, coffeeDrink) {
-    var messageData = {text: 'You ordered a ' + coffeeDrink.name + 'Total cost is ' + coffeeDrink.price}
+    var messageData = { 
+        "attachment": {
+            "type" : "template",
+            "payload": {
+                "template_type": "receipt",
+                "elements":[
+                    "title": coffeeDrink.name
+                    "quantity":"#####",
+                    "price":coffeeDrink.price, 
+                ],
+                "summary":{
+                    "total_cost": coffeeDrink.price 
+                }   
+            }
+        }
+    }
     Request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: { access_token: token },
