@@ -86,6 +86,7 @@ app.post('/webhook', function(req, res) {
             var text = event.message.text
             if (text === 'order') {
                 sendMenuMessage(sender)
+                continue
             }
         }
         if (event.postback) {
@@ -97,7 +98,6 @@ app.post('/webhook', function(req, res) {
             CoffeeDrink.findOne({ name: event.postback.payload }, function(err, coffeeDrink) {
                 if (err) {
                     console.log(err)
-                    continue
                 }
                 orderSummaryMessage(sender, coffeeDrink)
             })
