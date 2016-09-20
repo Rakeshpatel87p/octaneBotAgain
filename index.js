@@ -102,7 +102,7 @@ app.post('/webhook', function(req, res) {
 
             if (event.postback.payload === 'House_Coffee'){
             	request
-            		.get('/drinkInfo' + event.postback.payload)
+            		.get('/drinkInfo/' + event.postback.payload)
             		.on('response', function(response){
             			console.log(response)
             		});
