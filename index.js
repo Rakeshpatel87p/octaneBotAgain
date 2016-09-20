@@ -11,6 +11,7 @@
 
 var 
 	express = require('express'),
+    router = express.Router(),
 	mongodb = require('mongodb'),
     mongoose = require('mongoose'),
 	Schema = mongoose.Schema,
@@ -102,7 +103,7 @@ app.post('/webhook', function(req, res) {
             // continue
 
             if (event.postback.payload === 'House_Coffee'){
-            	Request
+            	router
                     .get('/drinkInfo/' + event.postback.payload)
             		.on('response', function(coffeeDrink){
             			console.log('this is the response----------', coffeeDrink)
