@@ -104,7 +104,7 @@ app.post('/webhook', function(req, res) {
             if (event.postback.payload === 'House_Coffee'){
             	request
             		.get(Heroku_URI + '/drinkInfo/' + event.postback.payload, function(req, res){
-                        console.log(res);
+                        console.log(res.status(201).json(res));
                     });
             		// .on('response', function(coffeeDrink){
             		// 	console.log('this is the response----------', coffeeDrink)
