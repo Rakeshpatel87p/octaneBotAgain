@@ -86,8 +86,8 @@ app.get('/webhook', function(req, res) {
 app.post('/webhook', function(req, res) {
     var messaging_events = req.body.entry[0].messaging;
     for (var i = 0; i < messaging_events.length; i++) {
-        var sender = event.sender.id
-        var event = req.body.entry[0].messaging[i]
+        var event = req.body.entry[0].messaging[i];
+        var sender = event.sender.id;
         if (event.message && event.message.text) {
             var text = event.message.text
             if (text === 'order') {
@@ -250,7 +250,7 @@ function orderSummaryMessage(sender, coffeeDrink) {
         method: 'POST',
         json: {
             recipient: { id: sender },
-            message: 'You order a ' + coffeeDrink.name,
+            message: 'You order a '
         }
     }, function(error, response, body) {
         if (error) {
