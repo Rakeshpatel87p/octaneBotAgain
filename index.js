@@ -240,7 +240,7 @@ function sendOrderMessage(sender) {
 }
 
 // spin spin sugar
-app.listen(process.env.PORT || 8080);
+// app.listen(process.env.PORT || 8080);
 exports.app = app;
 
 // app.listen(app.get('port'), function() {
