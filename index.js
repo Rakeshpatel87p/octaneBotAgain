@@ -102,7 +102,7 @@ app.post('/webhook', function(req, res) {
                 // sendTextMessage(sender, "Postback received: " + text.substring(0, 200), token)
                 // continue
 
-            if (event.postback.payload === 'House_Coffee') {
+            // if (event.postback.payload === 'House_Coffee') {
                 CoffeeDrink.findOne({ name: event.postback.payload }, function(err, coffeeDrink) {
                         if (err) {
                             console.log(err)
@@ -110,7 +110,7 @@ app.post('/webhook', function(req, res) {
                         orderSummaryMessage(sender, coffeeDrink)
                     })
                     // sendTextMessage(sender, 'Testing');
-            }
+            // }
         }
     }
     res.sendStatus(200)
@@ -242,7 +242,7 @@ function sendMenuMessage(sender) {
 }
 
 function orderSummaryMessage(sender, coffeeDrink) {
-    var messageData = {text: 'You order a ' + coffeeDrink.name + 'Total cost is ' + coffeeDrink.price}
+    var messageData = {text: 'You ordered a ' + coffeeDrink.name + 'Total cost is ' + coffeeDrink.price}
     Request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: { access_token: token },
