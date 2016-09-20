@@ -74,7 +74,7 @@ app.get('/webhook', function(req, res) {
 app.post('/webhook', function(req, res) {
     var messaging_events = req.body.entry[0].messaging;
     for (var i = 0; i < messaging_events.length; i++) {
-        var event = req.body.entry[0].messaging[i];
+        var event = messaging_events[i];
         var sender = event.sender.id;
         if (event.message && event.message.text) {
             var text = event.message.text
@@ -89,16 +89,15 @@ app.post('/webhook', function(req, res) {
             console.log('this is the postbackText--------------', postbackText);
             if (postbackText === "start_over") {
                 sendMenuMessage(sender)
-                process.exit();
+                    // process.exit();
+            } else {
+                CoffeeDrink.findOne({ name: event.postback.payload }, function(err, coffeeDrink) {
+                    if (err) {
+                        console.log(err)
+                    }
+                    orderSummaryMessage(sender, coffeeDrink);
+                })
             }
-            CoffeeDrink.findOne({ name: event.postback.payload }, function(err, coffeeDrink) {
-                if (err) {
-                    console.log(err)
-                }
-                orderSummaryMessage(sender, coffeeDrink)
-
-
-            })
         }
     }
     res.sendStatus(200)
@@ -128,10 +127,12 @@ app.get('/drinkInfo/:drink', function(req, res) {
 // const token = process.env.PAGE_ACCESS_TOKEN
 const token = "EAALR6yLCTuoBALKsjMzUnGMnmxV5jfSvJY3l1XAUbNYA7Mgl31TFAvT9QEkXxy0uklBPyeWdLFroZBf6hdTXX1ZBYPKCSUaTdDHdnxhpaaRhpCk50kvMzDVOZBCHzgO6IzXXq6JC1OX7aZBIn0xHFH8nydrFe5rU7pvGjZCs6tQZDZD";
 
-function greetingMessage(sender){
-    var messageData = { greeting:{
-    "text":"Hi {{user_first_name}}, welcome to this bot."
-  } }
+function greetingMessage(sender) {
+    var messageData = {
+        greeting: {
+            "text": "Hi {{user_first_name}}, welcome to this bot."
+        }
+    }
     Request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: { access_token: token },
@@ -247,6 +248,7 @@ function sendMenuMessage(sender) {
 }
 
 function orderSummaryMessage(sender, coffeeDrink) {
+    console.log('coffeeDrink', coffeeDrink)
     var messageData = {
         "attachment": {
             "type": "template",
