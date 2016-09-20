@@ -87,6 +87,7 @@ app.post('/webhook', function(req, res) {
             // How to make this work so that start overs are redirected?
             var postbackText = JSON.stringify(event.postback.payload)
             console.log('this is the postbackText--------------', postbackText);
+            console.log('truth?', postbackText === "start_over");
             if (postbackText === "start_over") {
                 sendMenuMessage(sender)
                     // process.exit();
