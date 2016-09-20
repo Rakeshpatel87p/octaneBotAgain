@@ -102,27 +102,14 @@ app.post('/webhook', function(req, res) {
             // continue
 
             if (event.postback.payload === 'House_Coffee'){
-                Request({
-                    url: Heroku_URI + '/drinkInfo/' + event.postback.payload,
-                    method: 'GET'
-                }, function(error, response, body) {
-                    if (error) {
-                        console.log('Error sending messages: ', error)
-                } else if (response.body.error) {
-                    console.log('Error: ', response.body.error)
-        }
-            console.log('this is the response------------', response);
-            console.log('this is the body----------------', body);
-        })
-
-             //    Request
-            	// 	.get(Heroku_URI + '/drinkInfo/' + event.postback.payload, function(req, res){
-             //            res.status(201).json(res);
-             //        });
-            	// 	// .on('response', function(coffeeDrink){
-            	// 	// 	console.log('this is the response----------', coffeeDrink)
-            	// 	// });
-            	// sendTextMessage(sender, 'Testing');
+            	Request
+            		.get(Heroku_URI + '/drinkInfo/' + event.postback.payload, function(req, res){
+                        res.status(201).json(res);
+                    });
+            		// .on('response', function(coffeeDrink){
+            		// 	console.log('this is the response----------', coffeeDrink)
+            		// });
+            	sendTextMessage(sender, 'Testing');
             }
         }
     }
@@ -154,7 +141,7 @@ const token = "EAALR6yLCTuoBALKsjMzUnGMnmxV5jfSvJY3l1XAUbNYA7Mgl31TFAvT9QEkXxy0u
 
 function sendTextMessage(sender, text) {
     var messageData = { text: text }
-    Request({
+    request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: { access_token: token },
         method: 'POST',
@@ -237,7 +224,7 @@ function sendOrderMessage(sender) {
         }
     };
 
-    Request({
+    request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: { access_token: token },
         method: 'POST',
