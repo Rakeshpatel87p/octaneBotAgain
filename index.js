@@ -162,7 +162,7 @@ function sendMenuMessage(sender) {
                         "image_url": "http://wtop.com/wp-content/uploads/2015/03/getty_030315_coffee.jpg",
                         "buttons": [{
                             "type": "postback",
-                            "title": "Break Me Out Of Here!",
+                            "title": "Pick Me!",
                             "payload": "House_Coffee"
 
                         }],
@@ -174,7 +174,7 @@ function sendMenuMessage(sender) {
                         "image_url": "http://del.h-cdn.co/assets/15/45/980x490/landscape-1446486666-giulia-mule.jpg",
                         "buttons": [{
                             "type": "postback",
-                            "title": "Pick Me!",
+                            "title": "Break Me Out!",
                             "payload": "Cappuccino"
 
                         }],
@@ -234,16 +234,16 @@ function orderSummaryMessage(sender, coffeeDrink) {
                 "elements": [{
                     "title": coffeeDrink.name,
                     // "quantity": "#####",
-                    "price": coffeeDrink.price
+                    "price": coffeeDrink.price,
+                    "button": [{
+                        "type": "postback",
+                        "title": "Confirm",
+                        "payload": "confirmed_order"
+                    }]
                 }],
                 "summary": {
                     "total_cost": coffeeDrink.price
-                },
-                "button": [{
-                    "type": "postback",
-                    "title": "Confirm",
-                    "payload": "confirmed_order"
-                }]
+                }
             }
         }
     };
