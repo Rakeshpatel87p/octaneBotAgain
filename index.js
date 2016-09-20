@@ -90,12 +90,12 @@ app.post('/webhook', function(req, res) {
             }
         }
         if (event.postback) {
-            if (JSON.stringify(event.postback.payload) === "start_over") {
+            var text = JSON.stringify(event.postback.payload)
+            if (text === "start_over") {
                 sendMenuMessage(sender)
             }
             console.log('look for me-----------', JSON.stringify(event.postback.payload));
-            // var text = JSON.stringify(event.postback)
-            CoffeeDrink.findOne({ name: event.postback.payload }, function(err, coffeeDrink) {
+            CoffeeDrink.findOne({ name: text }, function(err, coffeeDrink) {
                 if (err) {
                     console.log(err)
                 }
@@ -120,6 +120,7 @@ app.get('/drinkInfo/:drink', function(req, res) {
         if (err) {
             res.status(500).json(err);
         };
+
         res.status(201).json(coffeeDrink)
     });
 });
