@@ -19,6 +19,7 @@ var
 	port = process.env.PORT || 8080,
 	app = express(),
     ObjectID = mongodb.ObjectID,
+    MONGOLAB_URI = "mongodb://Rakeshpatel87p:Printer1@ds035846.mlab.com:35846/coffeedrinkinfo",
     db;
 	
 // parse application/x-www-form-urlencoded
