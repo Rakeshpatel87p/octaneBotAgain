@@ -141,7 +141,7 @@ const token = "EAALR6yLCTuoBALKsjMzUnGMnmxV5jfSvJY3l1XAUbNYA7Mgl31TFAvT9QEkXxy0u
 
 function sendTextMessage(sender, text) {
     var messageData = { text: text }
-    request({
+    Request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: { access_token: token },
         method: 'POST',
@@ -224,7 +224,7 @@ function sendOrderMessage(sender) {
         }
     };
 
-    request({
+    Request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: { access_token: token },
         method: 'POST',
