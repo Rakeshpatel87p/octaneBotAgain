@@ -136,7 +136,7 @@ function sendTextMessage(sender, text) {
     })
 }
 
-function sendOrderingMessage(sender) {
+function sendOrderMessage(sender) {
     var messageData = {
         "attachment": {
             "type": "template",
