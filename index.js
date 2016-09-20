@@ -26,7 +26,7 @@ app.use(bodyParser.json())
 app.set('port', (process.env.PORT || 8080))
 
 app.use(express.static('public'));
-mongoose.connect('mongodb://localhost/drinkPrices');
+mongoose.connect('mongodb://localhost:8080/drinkPrices');
 
 mongoose.connection.on('error', function(err) {
     console.error('Could not connect. Error', err)
