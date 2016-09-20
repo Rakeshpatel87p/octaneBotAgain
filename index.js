@@ -103,10 +103,12 @@ app.post('/webhook', function(req, res) {
 
             if (event.postback.payload === 'House_Coffee'){
             	request
-            		.get(Heroku_URI + '/drinkInfo/' + event.postback.payload)
-            		.on('response', function(coffeeDrink){
-            			console.log('this is the response----------', coffeeDrink)
-            		});
+            		.get(Heroku_URI + '/drinkInfo/' + event.postback.payload, function(req, res){
+                        console.log(res);
+                    });
+            		// .on('response', function(coffeeDrink){
+            		// 	console.log('this is the response----------', coffeeDrink)
+            		// });
             	sendTextMessage(sender, 'Testing');
             }
         }
