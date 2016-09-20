@@ -229,12 +229,15 @@ function orderSummaryMessage(sender, coffeeDrink) {
                 "template_type": "generic",
                 "elements": [{
                     "title": coffeeDrink.name + ' order.',
-                    // "quantity": "#####",
-                    "subtitle": 'For ' + coffeeDrink.price,
+                    "subtitle": 'For $' + coffeeDrink.price,
                     "buttons": [{
                         "type": "postback",
                         "title": "Confirm",
                         "payload": "Confirmed_Order"
+                    }, {
+                        "type": "postback",
+                        "title": "Start Over",
+                        "payload": "Start_over"
                     }]
                 }]
             }
