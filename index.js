@@ -44,8 +44,8 @@ mongoose.connect('mongodb://localhost:8080/drinkPrices' || process.env.MONGOLAB_
         var port = server.address().port;
         console.log('App now running on port', port)
     });
-});
 
+});
 // mongoose.connection.on('error', function(err) {
 //     console.error('Could not connect. Error', err)
 // });
