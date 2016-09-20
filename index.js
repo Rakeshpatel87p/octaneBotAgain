@@ -32,7 +32,7 @@ app.use(express.static('public'));
 // app.set('port', (process.env.PORT || 8080))
 
 // Connect to the database before starting the application server.
-mongoose.connect(process.env.MONGOLAB_URI, function(err, database){
+mongoose.connect(MONGOLAB_URI, function(err, database){
     if (err){
         console.log(err);
         process.exit(1);
