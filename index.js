@@ -19,7 +19,7 @@ var
 	port = process.env.PORT || 8080,
 	app = express(),
     ObjectID = mongodb.ObjectID,
-    MONGOLAB_URI = "mongodb://Rakeshpatel87p:Printer1@ds035846.mlab.com:35846/coffeedrinkinfo",
+    // MONGOLAB_URI = "mongodb://Rakeshpatel87p:Printer1@ds035846.mlab.com:35846/coffeedrinkinfo",
     db;
 	
 // parse application/x-www-form-urlencoded
@@ -32,7 +32,7 @@ app.use(express.static('public'));
 // app.set('port', (process.env.PORT || 8080))
 
 // Connect to the database before starting the application server.
-mongoose.connect(MONGOLAB_URI, function(err, database){
+mongoose.connect(process.env.MONGOLAB_URI, function(err, database){
     if (err){
         console.log(err);
         process.exit(1);
