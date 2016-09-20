@@ -1,11 +1,5 @@
 // Present user immediately w/ drink options
-
-// Output drink summary
-
 // Set up payment request
-
-// Q's for Victor:
-// Is my connection to MLabs properly set up?
 
 // 'use strict'
 
@@ -133,6 +127,34 @@ app.get('/drinkInfo/:drink', function(req, res) {
 // recommended to inject access tokens as environmental variables, e.g.
 // const token = process.env.PAGE_ACCESS_TOKEN
 const token = "EAALR6yLCTuoBALKsjMzUnGMnmxV5jfSvJY3l1XAUbNYA7Mgl31TFAvT9QEkXxy0uklBPyeWdLFroZBf6hdTXX1ZBYPKCSUaTdDHdnxhpaaRhpCk50kvMzDVOZBCHzgO6IzXXq6JC1OX7aZBIn0xHFH8nydrFe5rU7pvGjZCs6tQZDZD";
+
+function greetingMessage(sender){
+    var messageData = { greeting:{
+    "text":"Hi {{user_first_name}}, welcome to this bot."
+  } }
+    Request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: { access_token: token },
+        method: 'POST',
+        json: {
+            recipient: { id: sender },
+            message: messageData,
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })
+}
+
+// curl -X POST -H "Content-Type: application/json" -d '{
+//   "setting_type":"greeting",
+//   "greeting":{
+//     "text":"We are trying something different. This bot will take your order and payment. You only need to take a seat and we'll bring the drink to you"
+//   }
+// }' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=EAALR6yLCTuoBALKsjMzUnGMnmxV5jfSvJY3l1XAUbNYA7Mgl31TFAvT9QEkXxy0uklBPyeWdLFroZBf6hdTXX1ZBYPKCSUaTdDHdnxhpaaRhpCk50kvMzDVOZBCHzgO6IzXXq6JC1OX7aZBIn0xHFH8nydrFe5rU7pvGjZCs6tQZDZD" 
 
 function sendTextMessage(sender, text) {
     var messageData = { text: text }
