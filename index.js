@@ -102,7 +102,7 @@ app.post('/webhook', function(req, res) {
 
             if (event.postback.payload === 'House_Coffee'){
             	request
-            		.get('/drinkInfo/' + event.postback.payload)
+            		.get('https://salty-chamber-30914.herokuapp.com/drinkInfo/drinkInfo/' + event.postback.payload)
             		.on('response', function(response){
             			console.log(response)
             		});
@@ -123,9 +123,7 @@ app.post('/drinkInfo', function(req, res){
 });
 
 app.get('/drinkInfo/:drink', function(req, res){
-	var coffeeDrink = req.params.drink;
-	console.log('this is the drink', coffeeDrink);
-	CoffeeDrink.findOne({name: coffeeDrink}, function(err, coffeeDrink){
+	CoffeeDrink.findOne({name: req.params.drink}, function(err, coffeeDrink){
 		if (err) {
 			res.status(500).json(err);
 		}; 
