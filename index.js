@@ -81,7 +81,7 @@ app.post('/webhook', function(req, res) {
 
             if (event.postback.payload === 'House_Coffee'){
             	request
-            		.get('http://localhost:8080/' + event.postback.payload)
+            		.get('http://localhost:8080/drinkInfo' + event.postback.payload)
             		.on('response', function(response){
             			console.log(response)
             		});
