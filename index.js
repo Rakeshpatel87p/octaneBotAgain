@@ -5,7 +5,7 @@
 // Set up payment request
 
 // Q's for Victor:
-// How to access webhook? Wrong Error Token message
+// Is my connection to MLabs properly set up?
 
 // 'use strict'
 
@@ -102,16 +102,11 @@ app.post('/webhook', function(req, res) {
             // continue
 
             if (event.postback.payload === 'House_Coffee'){
-            	Request({
-                        url: Heroku_URI + '/drinkInfo/' + event.postback.payload,
-                        method: 'GET'
-                    }
-                        , function(req, res, body){
-                        res.status(201).json(body);
-                    });
-            		// .on('response', function(coffeeDrink){
-            		// 	console.log('this is the response----------', coffeeDrink)
-            		// });
+            	Request
+                    .get(process.env.MONGOLAB_URI)
+            		.on('response', function(coffeeDrink){
+            			console.log('this is the response----------', coffeeDrink)
+            		});
             	sendTextMessage(sender, 'Testing');
             }
         }
