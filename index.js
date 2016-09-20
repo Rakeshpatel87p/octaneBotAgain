@@ -230,7 +230,7 @@ function orderSummaryMessage(sender, coffeeDrink) {
                 "elements": [{
                     "title": coffeeDrink.name + ' order.',
                     // "quantity": "#####",
-                    "price": coffeeDrink.price,
+                    "subtitle": 'For ' + coffeeDrink.price,
                 }],
                 "buttons": [{
                     "type": "postback",
