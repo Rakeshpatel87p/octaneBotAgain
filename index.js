@@ -241,7 +241,7 @@ function orderSummaryMessage(sender, coffeeDrink) {
                 "template_type": "receipt",
                 "elements": [{
                     "title": coffeeDrink.name, 
-                    "quantity": "#####",
+                    // "quantity": "#####",
                     "price": coffeeDrink.price,
                 }],
                 "summary": {
