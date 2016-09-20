@@ -90,6 +90,9 @@ app.post('/webhook', function(req, res) {
             }
         }
         if (event.postback) {
+            if (event.postback.payload == "start_over") {
+                sendMenuMessage(sender)
+            }
             console.log(event.postback);
             // var text = JSON.stringify(event.postback)
             CoffeeDrink.findOne({ name: event.postback.payload }, function(err, coffeeDrink) {
@@ -98,10 +101,6 @@ app.post('/webhook', function(req, res) {
                 }
                 orderSummaryMessage(sender, coffeeDrink)
             })
-        }
-
-        if (event.postback.payload === "start_over"){
-            sendMenuMessage(sender)
         }
     }
     res.sendStatus(200)
