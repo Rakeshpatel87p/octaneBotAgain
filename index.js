@@ -9,23 +9,23 @@
 
 // 'use strict'
 
-var 
-	express = require('express'),
-	mongodb = require('mongodb'),
+var
+    express = require('express'),
+    mongodb = require('mongodb'),
     mongoose = require('mongoose'),
-	Schema = mongoose.Schema,
-	bodyParser = require('body-parser'),
-	request = require('request'),
-	port = process.env.PORT || 8080,
-	app = express(),
+    Schema = mongoose.Schema,
+    bodyParser = require('body-parser'),
+    Request = require('request'),
+    port = process.env.PORT || 8080,
+    app = express(),
     ObjectID = mongodb.ObjectID,
     Heroku_URI = 'https://salty-chamber-30914.herokuapp.com',
     // MONGOLAB_URI = "mongodb://Rakeshpatel87p:Printer1@ds035846.mlab.com:35846/coffeedrinkinfo",
     db;
-	
+
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))	
-// parse application/json
+app.use(bodyParser.urlencoded({ extended: false }))
+    // parse application/json
 app.use(bodyParser.json())
 
 app.use(express.static('public'));
@@ -33,8 +33,8 @@ app.use(express.static('public'));
 // app.set('port', (process.env.PORT || 8080))
 
 // Connect to the database before starting the application server.
-mongoose.connect(process.env.MONGOLAB_URI, function(err, database){
-    if (err){
+mongoose.connect(process.env.MONGOLAB_URI, function(err, database) {
+    if (err) {
         console.log(err);
         process.exit(1);
     }
@@ -42,7 +42,7 @@ mongoose.connect(process.env.MONGOLAB_URI, function(err, database){
     db = database;
     console.log('Database connection ready captain')
 
-    var server = app.listen(process.env.PORT || 8080, function(){
+    var server = app.listen(process.env.PORT || 8080, function() {
         var port = server.address().port;
         console.log('App now running on port', port)
     });
@@ -55,8 +55,8 @@ mongoose.connect(process.env.MONGOLAB_URI, function(err, database){
 
 
 var coffeeDrinkSchema = mongoose.Schema({
-	name: {type: String, unique: true},
-	price: {type: Number},
+    name: { type: String, unique: true },
+    price: { type: Number },
 })
 
 // For accessing /webhook locally??
@@ -98,40 +98,52 @@ app.post('/webhook', function(req, res) {
         if (event.postback) {
             var text = JSON.stringify(event.postback)
             console.log('this is event postback------------', event.postback.payload)
-            // sendTextMessage(sender, "Postback received: " + text.substring(0, 200), token)
-            // continue
+                // sendTextMessage(sender, "Postback received: " + text.substring(0, 200), token)
+                // continue
 
-            if (event.postback.payload === 'House_Coffee'){
-            	request
-            		.get(Heroku_URI + '/drinkInfo/' + event.postback.payload, function(req, res){
-                        console.log(res.status(201).json(res));
-                    });
-            		// .on('response', function(coffeeDrink){
-            		// 	console.log('this is the response----------', coffeeDrink)
-            		// });
-            	sendTextMessage(sender, 'Testing');
+            if (event.postback.payload === 'House_Coffee') {
+                Request({
+                    url: Heroku_URI + '/drinkInfo/' + event.postback.payload,
+                    method: 'GET'
+                }, function(error, response, body) {
+                    if (error) {
+                        console.log('Error sending messages: ', error)
+                    } else if (response.body.error) {
+                        console.log('Error: ', response.body.error)
+                    }
+                    console.log('this is the response------------', response);
+                    console.log('this is the body----------------', body);
+                })
+
+                //    Request
+                //  .get(Heroku_URI + '/drinkInfo/' + event.postback.payload, function(req, res){
+                //            res.status(201).json(res);
+                //        });
+                //  // .on('response', function(coffeeDrink){
+                //  //  console.log('this is the response----------', coffeeDrink)
+                //  // });
+                // sendTextMessage(sender, 'Testing');
             }
         }
     }
-    res.sendStatus(200)
 });
 
-app.post('/drinkInfo', function(req, res){
-	 CoffeeDrink.create({name: req.body.drinkName, price: req.body.price}, function(err, newDrinkEntry){
-	 	if (err) {
-	 		res.status(500).json(err)
-	 	}; 
-	 	res.status(201).json(newDrinkEntry);
-	 });
+app.post('/drinkInfo', function(req, res) {
+    CoffeeDrink.create({ name: req.body.drinkName, price: req.body.price }, function(err, newDrinkEntry) {
+        if (err) {
+            res.status(500).json(err)
+        };
+        res.status(201).json(newDrinkEntry);
+    });
 });
 
-app.get('/drinkInfo/:drink', function(req, res){
-	CoffeeDrink.findOne({name: req.params.drink}, function(err, coffeeDrink){
-		if (err) {
-			res.status(500).json(err);
-		}; 
-		res.status(201).json(coffeeDrink)
-	});
+app.get('/drinkInfo/:drink', function(req, res) {
+    CoffeeDrink.findOne({ name: req.params.drink }, function(err, coffeeDrink) {
+        if (err) {
+            res.status(500).json(err);
+        };
+        res.status(201).json(coffeeDrink)
+    });
 });
 
 
@@ -141,7 +153,7 @@ const token = "EAALR6yLCTuoBALKsjMzUnGMnmxV5jfSvJY3l1XAUbNYA7Mgl31TFAvT9QEkXxy0u
 
 function sendTextMessage(sender, text) {
     var messageData = { text: text }
-    request({
+    Request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: { access_token: token },
         method: 'POST',
@@ -165,66 +177,66 @@ function sendOrderMessage(sender) {
             "payload": {
                 "template_type": "generic",
                 "elements": [{
-                    "title": "House Coffee",
-                    "subtitle": "Freshly brewed, brought to you from la montanas de Honduras. $3.00",
-                    "image_url": "http://wtop.com/wp-content/uploads/2015/03/getty_030315_coffee.jpg",
-                    "buttons": [{
-                        "type": "postback",
-                        "title": "Order Me!",
-                        "payload": "House_Coffee"
+                        "title": "House Coffee",
+                        "subtitle": "Freshly brewed, brought to you from la montanas de Honduras. $3.00",
+                        "image_url": "http://wtop.com/wp-content/uploads/2015/03/getty_030315_coffee.jpg",
+                        "buttons": [{
+                            "type": "postback",
+                            "title": "Order Me!",
+                            "payload": "House_Coffee"
 
+                        }, {
+                            "type": "postback",
+                            "title": "Checkout",
+                            "payload": "Check out"
+                        }],
+                    },
+
+                    {
+                        "title": "Cappuccino",
+                        "subtitle": "Italian Coffee drink, prepared with 2 shots of espresso, hot milk, and steamed milk foam. (Let drooling commence) $4.00.",
+                        "image_url": "http://del.h-cdn.co/assets/15/45/980x490/landscape-1446486666-giulia-mule.jpg",
+                        "buttons": [{
+                            "type": "postback",
+                            "title": "Order Me!",
+                            "payload": "Cappuccino"
+
+                        }, {
+                            "type": "postback",
+                            "title": "Checkout",
+                            "payload": "Checkout"
+                        }],
+                    },
+
+                    {
+                        "title": "Cortado",
+                        "subtitle": "Equal parts espresso and steamed milk. 5 ounches total volume. We got you! $3.00",
+                        "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/16/Caf%C3%A9Cortado(Tallat).jpg",
+                        "buttons": [{
+                            "type": "postback",
+                            "title": "Order Me!",
+                            "payload": "Cortado",
+
+                        }, {
+                            "type": "postback",
+                            "title": "Checkout",
+                            "payload": "Checkout",
+                        }],
                     }, {
-                        "type": "postback",
-                        "title": "Checkout",
-                        "payload": "Check out"
-                    }],
-                },
-
-                {
-                    "title": "Cappuccino",
-                    "subtitle": "Italian Coffee drink, prepared with 2 shots of espresso, hot milk, and steamed milk foam. (Let drooling commence) $4.00.",
-                    "image_url": "http://del.h-cdn.co/assets/15/45/980x490/landscape-1446486666-giulia-mule.jpg",
-                    "buttons": [{
-                        "type": "postback",
-                        "title": "Order Me!",
-                        "payload": "Cappuccino"
-
-                    }, {
-                        "type": "postback",
-                        "title": "Checkout",
-                        "payload": "Checkout"
-                    }],
-                },
-
-                {
-                    "title": "Cortado",
-                    "subtitle": "Equal parts espresso and steamed milk. 5 ounches total volume. We got you! $3.00",
-                    "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/16/Caf%C3%A9Cortado(Tallat).jpg",
-                    "buttons": [{
-                        "type": "postback",
-                        "title": "Order Me!",
-                        "payload": "Cortado",
-
-                    }, {
-                        "type": "postback",
-                        "title": "Checkout",
-                        "payload": "Checkout",
-                    }],
-                },
-                {
-                	"title": "In Limited Release",
-                	"subtitle": "If we dont have your drink, you'll have to use our beautiful register",
-                	"buttons": [{
-                		"type": "postback",
-                		"title": "Click Me If You Like this Feature!",
-                		"payload": "Other users"
-                	}],
-                }]
+                        "title": "In Limited Release",
+                        "subtitle": "If we dont have your drink, you'll have to use our beautiful register",
+                        "buttons": [{
+                            "type": "postback",
+                            "title": "Click Me If You Like this Feature!",
+                            "payload": "Other users"
+                        }],
+                    }
+                ]
             }
         }
     };
 
-    request({
+    Request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: { access_token: token },
         method: 'POST',
