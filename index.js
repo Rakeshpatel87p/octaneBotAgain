@@ -93,11 +93,12 @@ app.post('/webhook', function(req, res) {
             if (event.postback.payload == "start_over") {
                 sendMenuMessage(sender)
             }
-            console.log(event.postback);
+            console.log(event.postback.payload);
             // var text = JSON.stringify(event.postback)
             CoffeeDrink.findOne({ name: event.postback.payload }, function(err, coffeeDrink) {
                 if (err) {
                     console.log(err)
+                    continue
                 }
                 orderSummaryMessage(sender, coffeeDrink)
             })
