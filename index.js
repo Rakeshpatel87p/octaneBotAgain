@@ -242,14 +242,14 @@ function sendMenuMessage(sender) {
 }
 
 function orderSummaryMessage(sender, coffeeDrink) {
-    // var messageData = { text: text }
+    console.log(coffeeDrink);
     Request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: { access_token: token },
         method: 'POST',
         json: {
             recipient: { id: sender },
-            message: coffeeDrink.name,
+            message: 'You order a ' + coffeeDrink.name,
         }
     }, function(error, response, body) {
         if (error) {
