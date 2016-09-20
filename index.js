@@ -103,7 +103,7 @@ app.post('/webhook', function(req, res) {
 
             if (event.postback.payload === 'House_Coffee'){
             	Request
-                    .get(process.env.MONGOLAB_URI)
+                    .get('/drinkInfo/' + event.postback.payload)
             		.on('response', function(coffeeDrink){
             			console.log('this is the response----------', coffeeDrink)
             		});
