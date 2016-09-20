@@ -102,8 +102,11 @@ app.post('/webhook', function(req, res) {
             // continue
 
             if (event.postback.payload === 'House_Coffee'){
-            	Request
-            		.get(Heroku_URI + '/drinkInfo/' + event.postback.payload, function(req, res){
+            	Request({
+                        url: Heroku_URI + '/drinkInfo/' + event.postback.payload,
+                        method: 'GET'
+                    }
+                        , function(req, res){
                         res.status(201).json(res);
                     });
             		// .on('response', function(coffeeDrink){
