@@ -240,7 +240,7 @@ function orderSummaryMessage(sender, coffeeDrink) {
             "payload": {
                 "template_type": "receipt",
                 "elements": [{
-                    "title": coffeeDrink.name, 
+                    "title": coffeeDrink.name,
                     // "quantity": "#####",
                     "price": coffeeDrink.price,
                 }],
@@ -256,7 +256,22 @@ function orderSummaryMessage(sender, coffeeDrink) {
         method: 'POST',
         json: {
             recipient: { id: sender },
-            message: messageData
+            message: {
+                "attachment": {
+                    "type": "template",
+                    "payload": {
+                        "template_type": "receipt",
+                        "elements": [{
+                            "title": coffeeDrink.name,
+                            // "quantity": "#####",
+                            "price": coffeeDrink.price,
+                        }],
+                        "summary": {
+                            "total_cost": coffeeDrink.price
+                        }
+                    }
+                }
+            };
         }
     }, function(error, response, body) {
         if (error) {
