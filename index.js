@@ -11,26 +11,46 @@
 
 var 
 	express = require('express'),
-	mongoose = require('mongoose'),
+	mongodb = require('mongodb'),
+    mongoose = require('mongoose'),
 	Schema = mongoose.Schema,
 	bodyParser = require('body-parser'),
 	request = require('request'),
 	port = process.env.PORT || 8080,
-	app = express();
+	app = express(),
+    ObjectID = mongodb.ObjectID,
+    db;
 	
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))	
 // parse application/json
 app.use(bodyParser.json())
 
-app.set('port', (process.env.PORT || 8080))
-
 app.use(express.static('public'));
-mongoose.connect('mongodb://localhost:8080/drinkPrices');
+// Need this anymore?
+// app.set('port', (process.env.PORT || 8080))
 
-mongoose.connection.on('error', function(err) {
-    console.error('Could not connect. Error', err)
+// Connect to the database before starting the application server.
+mongoose.connect('mongodb://localhost:8080/drinkPrices' || process.env.MONGOLAB_URI, function(err, database){
+    if (err){
+        console.log(err);
+        process.exit(1);
+    }
+
+    db = database;
+    console.log('Database connection ready captain')
+
+    var server = app.listen(process.env.PORT || 8080, function(){
+        var port = server.address().port;
+        console.log('App now running on port', port)
+    });
 });
+
+// mongoose.connection.on('error', function(err) {
+//     console.error('Could not connect. Error', err)
+// });
+
+
 
 var coffeeDrinkSchema = mongoose.Schema({
 	name: {type: String, unique: true},
