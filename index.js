@@ -242,7 +242,7 @@ function sendMenuMessage(sender) {
 }
 
 function orderSummaryMessage(sender, coffeeDrink) {
-    var messageData = {text: coffeeDrink.name}
+    var messageData = {text: 'You order a ' + coffeeDrink.name + 'Total cost is ' + coffeeDrink.price}
     Request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: { access_token: token },
