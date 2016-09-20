@@ -90,20 +90,22 @@ app.post('/webhook', function(req, res) {
             }
         }
         if (event.postback) {
-            var text = JSON.stringify(event.postback.payload)
-            if (text === "start_over") {
+            // How to make this work so that start overs are redirected?
+            var postbackText = JSON.stringify(event.postback.payload)
+            if (postbackText === "start_over") {
                 sendMenuMessage(sender)
             }
             console.log('look for me-----------', JSON.stringify(event.postback.payload));
             CoffeeDrink.findOne({ name: text }, function(err, coffeeDrink) {
                 if (err) {
-                    sendMenuMessage(sender)
+                        console.log(err)
+                    }
                 }
                 orderSummaryMessage(sender, coffeeDrink)
             })
-        }
     }
-    res.sendStatus(200)
+}
+res.sendStatus(200)
 });
 
 app.post('/drinkInfo', function(req, res) {
