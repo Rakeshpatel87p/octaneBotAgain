@@ -31,7 +31,7 @@ app.use(express.static('public'));
 // app.set('port', (process.env.PORT || 8080))
 
 // Connect to the database before starting the application server.
-mongoose.connect('mongodb://localhost:8080/drinkPrices' || process.env.MONGOLAB_URI, function(err, database){
+mongoose.connect(process.env.MONGOLAB_URI, function(err, database){
     if (err){
         console.log(err);
         process.exit(1);
