@@ -86,7 +86,6 @@ app.post('/facebookCanvasPost/', function(req, res){
 
 // to post data
 app.post('/webhook', function(req, res) {
-    console.log('test');
     var messaging_events = req.body.entry[0].messaging;
     for (var i = 0; i < messaging_events.length; i++) {
         var event = messaging_events[i];
@@ -276,8 +275,8 @@ function orderSummaryMessage(sender, coffeeDrink) {
             "payload": {
                 "template_type": "generic",
                 "elements": [{
-                    "title": coffeeDrink.name + ' order.',
-                    "subtitle": 'For $' + coffeeDrink.price,
+                    "title": coffeeDrink.name + ' order. For ' + coffeeDrink.price,
+                    "subtitle": "Type 'order' to start over"
                     "buttons": [{
                         "type": "postback",
                         "title": "Confirm",
