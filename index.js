@@ -61,10 +61,9 @@ app.get('/', function(req, res) {
 
 });
 
-// app.get('/privacypolicy', function(req, res){
-//     console.log(Privacy_Policy)
-//     res.send({});
-// })
+app.get('/privacypolicy', function(req, res){
+    res.send(Privacy_Policy);
+})
 
 // for facebook verification
 app.get('/webhook', function(req, res) {
