@@ -111,7 +111,8 @@ app.post('/webhook', function(req, res) {
                         console.log(err)
                     }
                     if (!coffeeDrink) {
-                        console.log('messaging events==========', messaging_events);
+                        console.log('this is the event---------', event);
+                        console.log('event.message.text------------', event.message.text);
                         // sendConfirmation(sender, )
                     } else {
                         orderSummaryMessage(sender, coffeeDrink);
