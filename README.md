@@ -1,6 +1,5 @@
 RESEARCH RESEARCH RESEARCH:v 
 
-Handle confirm postback payload
 Create a Greeting Message
 
 V2:
