@@ -277,12 +277,12 @@ function orderSummaryMessage(sender, coffeeDrink) {
             "payload": {
                 "template_type": "generic",
                 "elements": [{
-                    "title": coffeeDrink.name + ' order. For ' + coffeeDrink.price,
-                    "subtitle": "Type 'order' to start over",
+                    "title": coffeeDrink.name + ' order. For $' + coffeeDrink.price,
+                    "subtitle": "To start fresh, type 'order'",
                     "buttons": [{
                         "type": "postback",
                         "title": "Confirm",
-                        "payload": 'confirmed'
+                        "payload": 'confirmed ' + coffeeDrink.name
                     }]
                 }]
             }
