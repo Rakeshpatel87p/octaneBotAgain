@@ -22,8 +22,6 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.use(express.static('public'));
-// Need this anymore?
-// app.set('port', (process.env.PORT || 8080))
 
 // Connect to the database before starting the application server.
 mongoose.connect(process.env.MONGOLAB_URI, function(err, database) {
@@ -46,12 +44,6 @@ var CoffeeDrinkSchema = new mongoose.Schema({
     name: { type: String, unique: true },
     price: { type: Number },
 });
-
-// For accessing /webhook locally??
-// app.use(function(req, res, next){
-//   res.setHeader('Access-Control-Allow-Origin', '*');
-//   next();
-// })
 
 var CoffeeDrink = mongoose.model('CoffeeDrink', CoffeeDrinkSchema);
 
@@ -87,6 +79,7 @@ app.post('/facebookCanvasPost/', function(req, res) {
 // to post data
 app.post('/webhook', function(req, res) {
     var messaging_events = req.body.entry[0].messaging;
+    console.log(req.body.entry)
     for (var i = 0; i < messaging_events.length; i++) {
         var event = messaging_events[i];
         var sender = event.sender.id;
@@ -98,14 +91,7 @@ app.post('/webhook', function(req, res) {
             }
         }
         if (event.postback) {
-            // How to make this work so that start overs are redirected?
-            var postbackText = JSON.stringify(event.postback.payload)
-            console.log('this is the postbackText--------------', postbackText);
-            console.log('truth?--------------', postbackText === "start_over", typeof postbackTest);
-            // if (postbackText === "start_over") {
-            //     sendMenuMessage(sender)
-            //         // process.exit();
-            // } else {
+            // var postbackText = JSON.stringify(event.postback.payload)
             CoffeeDrink.findOne({ name: event.postback.payload }, function(err, coffeeDrink) {
                     if (err) {
                         console.log(err)
@@ -117,7 +103,6 @@ app.post('/webhook', function(req, res) {
                     }
 
                 })
-                // }
         }
     }
     res.sendStatus(200)
@@ -169,13 +154,6 @@ function greetingMessage(sender) {
         }
     })
 }
-
-// curl -X POST -H "Content-Type: application/json" -d '{
-//   "setting_type":"greeting",
-//   "greeting":{
-//     "text":"We are trying something different. This bot will take your order and payment. You only need to take a seat and we'll bring the drink to you"
-//   }
-// }' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=EAALR6yLCTuoBALKsjMzUnGMnmxV5jfSvJY3l1XAUbNYA7Mgl31TFAvT9QEkXxy0uklBPyeWdLFroZBf6hdTXX1ZBYPKCSUaTdDHdnxhpaaRhpCk50kvMzDVOZBCHzgO6IzXXq6JC1OX7aZBIn0xHFH8nydrFe5rU7pvGjZCs6tQZDZD" 
 
 function sendTextMessage(sender, text) {
     var messageData = { text: text }

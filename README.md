@@ -1,7 +1,5 @@
 RESEARCH RESEARCH RESEARCH:v 
 
-Create a Greeting Message
-
 V2:
 Present user immediately w/ drink options
 Set up payment request
