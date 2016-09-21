@@ -7,7 +7,7 @@ var
     mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     bodyParser = require('body-parser'),
-    Privacy_Policy = require('./privacy_policy.js')
+    Privacy_Policy = require('./privacy_policy.js'),
     Request = require('request'),
     port = process.env.PORT || 8080,
     app = express(),
