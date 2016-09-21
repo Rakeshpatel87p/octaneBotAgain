@@ -80,6 +80,10 @@ app.get('/webhook', function(req, res) {
     sendMenuMessage();
 });
 
+app.post('/facebookCanvasPost/', function(req, res){
+    res.send({});
+})
+
 // to post data
 app.post('/webhook', function(req, res) {
     console.log('test');
