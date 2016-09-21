@@ -8,7 +8,7 @@ var
     Schema = mongoose.Schema,
     bodyParser = require('body-parser'),
     Privacy_Policy = require('./privacy_policy.js'),
-    Terms_and_Conditions = require('./Terms_and_Conditions.js')
+    Terms_and_Conditions = require('./Terms_and_Conditions.js'),
     Request = require('request'),
     port = process.env.PORT || 8080,
     app = express(),
