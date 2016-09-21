@@ -1,3 +1,8 @@
+// RESEARCH RESEARCH RESEARCH:
+// Get bot to work w/ any user
+// Handle confirm postback payload
+
+// V2:
 // Present user immediately w/ drink options
 // Set up payment request
 
@@ -58,8 +63,10 @@ var CoffeeDrink = mongoose.model('CoffeeDrink', CoffeeDrinkSchema);
 
 // index
 app.get('/', function(req, res) {
-    res.send('hello world i am a secret bot')
-})
+    var textToSend = { text: 'hello world i am a secret bot' };
+    res.send(textToSend);
+
+});
 
 // for facebook verification
 app.get('/webhook', function(req, res) {
@@ -69,7 +76,7 @@ app.get('/webhook', function(req, res) {
     }
     res.send('Error, wrong token');
     sendMenuMessage();
-})
+});
 
 // to post data
 app.post('/webhook', function(req, res) {
@@ -133,7 +140,7 @@ app.get('/drinkInfo/:drink', function(req, res) {
 
 // recommended to inject access tokens as environmental variables, e.g.
 // const token = process.env.PAGE_ACCESS_TOKEN
-const token = "EAALR6yLCTuoBALKsjMzUnGMnmxV5jfSvJY3l1XAUbNYA7Mgl31TFAvT9QEkXxy0uklBPyeWdLFroZBf6hdTXX1ZBYPKCSUaTdDHdnxhpaaRhpCk50kvMzDVOZBCHzgO6IzXXq6JC1OX7aZBIn0xHFH8nydrFe5rU7pvGjZCs6tQZDZD";
+var token = "EAALR6yLCTuoBALKsjMzUnGMnmxV5jfSvJY3l1XAUbNYA7Mgl31TFAvT9QEkXxy0uklBPyeWdLFroZBf6hdTXX1ZBYPKCSUaTdDHdnxhpaaRhpCk50kvMzDVOZBCHzgO6IzXXq6JC1OX7aZBIn0xHFH8nydrFe5rU7pvGjZCs6tQZDZD";
 
 function greetingMessage(sender) {
     var messageData = {
