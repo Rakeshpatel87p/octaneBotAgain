@@ -8,6 +8,7 @@ var
     Schema = mongoose.Schema,
     bodyParser = require('body-parser'),
     Privacy_Policy = require('./privacy_policy.js'),
+    Terms_and_Conditions = require('./Terms_and_Conditions.js')
     Request = require('request'),
     port = process.env.PORT || 8080,
     app = express(),
@@ -63,6 +64,10 @@ app.get('/', function(req, res) {
 
 app.get('/privacypolicy', function(req, res){
     res.send(Privacy_Policy);
+});
+
+app.get('/terms_and_conditions', function(req, res){
+    res.send(Terms_and_Conditions);
 })
 
 // for facebook verification
