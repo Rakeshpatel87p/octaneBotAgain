@@ -304,7 +304,7 @@ function orderSummaryMessage(sender, coffeeDrink) {
 }
 
 function sendConfirmation(sender, coffeeDrinkConfirmed) {
-    var messageData = { text: coffeeDrinkConfirmed }
+    var messageData = { text: coffeeDrinkConfirmed + "Have a seat! You're drink will be ready soon." }
     Request({
         url: 'https://graph.facebook.com/v2.6/me/messages',
         qs: { access_token: token },
