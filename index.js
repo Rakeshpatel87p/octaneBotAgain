@@ -1,11 +1,3 @@
-// RESEARCH RESEARCH RESEARCH:
-// Get bot to work w/ any user
-// Handle confirm postback payload
-
-// V2:
-// Present user immediately w/ drink options
-// Set up payment request
-
 // 'use strict'
 
 var
