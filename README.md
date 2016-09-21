@@ -1,9 +1,6 @@
-RESEARCH RESEARCH RESEARCH:
+RESEARCH RESEARCH RESEARCH:v 
 
-Get bot to work w/ any user
-    Paperwork: get('/privacyagreement') from local text obj. 
 Handle confirm postback payload
-Style facebook page - make it look legit
 Create a Greeting Message
 
 V2:
