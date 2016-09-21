@@ -92,7 +92,7 @@ app.post('/webhook', function(req, res) {
         var sender = event.sender.id;
         if (event.message && event.message.text) {
             var text = event.message.text
-            if (text === 'order') {
+            if (text == 'order') {
                 sendMenuMessage(sender)
                 continue
             }
@@ -111,7 +111,8 @@ app.post('/webhook', function(req, res) {
                         console.log(err)
                     }
                     if (!coffeeDrink) {
-                        sendMenuMessage(sender)
+                        console.log('messaging events==========', messaging_events);
+                        // sendConfirmation(sender, )
                     } else {
                         orderSummaryMessage(sender, coffeeDrink);
                     }
