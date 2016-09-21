@@ -62,11 +62,11 @@ app.get('/', function(req, res) {
 
 });
 
-app.get('/privacypolicy', function(req, res){
+app.get('/privacypolicy', function(req, res) {
     res.send(Privacy_Policy);
 });
 
-app.get('/terms_and_conditions', function(req, res){
+app.get('/terms_and_conditions', function(req, res) {
     res.send(Terms_and_Conditions);
 })
 
@@ -80,7 +80,7 @@ app.get('/webhook', function(req, res) {
     sendMenuMessage();
 });
 
-app.post('/facebookCanvasPost/', function(req, res){
+app.post('/facebookCanvasPost/', function(req, res) {
     res.send({});
 })
 
@@ -111,9 +111,7 @@ app.post('/webhook', function(req, res) {
                         console.log(err)
                     }
                     if (!coffeeDrink) {
-                        console.log('this is the event---------', event);
-                        console.log('event.message.text------------', event.message.text);
-                        // sendConfirmation(sender, )
+                        sendConfirmation(sender, event.postback.payload)
                     } else {
                         orderSummaryMessage(sender, coffeeDrink);
                     }
@@ -304,5 +302,24 @@ function orderSummaryMessage(sender, coffeeDrink) {
         }
     })
 }
+
+function sendConfirmation(sender, coffeeDrinkConfirmed) {
+    var messageData = { text: coffeeDrinkConfirmed }
+    Request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: { access_token: token },
+        method: 'POST',
+        json: {
+            recipient: { id: sender },
+            message: messageData,
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending messages: ', error)
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error)
+        }
+    })
+};
 
 exports.app = app;
