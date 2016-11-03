@@ -2,7 +2,6 @@
 
 var
     express = require('express'),
-    router = express.Router(),
     mongodb = require('mongodb'),
     mongoose = require('mongoose'),
     Schema = mongoose.Schema,
